@@ -1,0 +1,40 @@
+
+homeassistant:
+  latitude: 52.662039
+  longitude: 6.890839 
+  elevation: 430
+  unit_system: metric
+  time_zone: Europe/Amsterdam
+  name: Home
+
+media_player:
+  - platform: sonos
+    hosts:
+      - 10.0.0.20
+
+frontend:
+
+http:
+
+updater:
+
+discovery:
+
+history:
+
+logbook:
+
+sun:
+
+influxdb:
+  host: influxdb
+  database: home_assistant
+  username: home_assistant
+  password: home_assistant
+
+sensor:
+  - platform: darksky
+    api_key: 9ae1cca45ff989e187edd82e2dd19e8d
+    monitored_conditions:
+      - temperature
+      - wind_speed

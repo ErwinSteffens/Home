@@ -1,0 +1,23 @@
+version: '2'
+
+services:
+  homeassistant:
+    image: homeassistant/rpi2-home-assistant:latest
+    ports:
+      - "8123:8123"
+    labels:
+      - "traefik.backend=home"
+      - "traefik.frontend.rule=Host:home.docker.local"
+    volumes:
+      - /usr/share/homeassistant/configuration.yml:/config 
+      - /etc/localtime:/etc/localtime:ro 
+  traefik:
+    image: traefik
+    command: --web --docker --docker.domain=docker.local --logLevel=INFO
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /dev/null:/traefik.toml
