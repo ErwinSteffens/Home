@@ -3,21 +3,32 @@ version: '2'
 services:
   homeassistant:
     image: homeassistant/rpi2-home-assistant:latest
+    restart: always
     ports:
       - "8123:8123"
+    devices:
+      - /dev/serial/by-id/usb-RFXCOM_RFXtrx433_A1LQ5JL-if00-port0:/dev/serial/by-id/usb-RFXCOM_RFXtrx433
+    environment:
+      HOMEASSISTANT_PASSWORD: "${HOMEASSISTANT_PASSWORD}"  
     labels:
       - "traefik.backend=home"
-      - "traefik.frontend.rule=Host:home.docker.local"
+      - "traefik.frontend.rule=Host:home.erwinsteffens.nl"
     volumes:
-      - /usr/share/homeassistant/configuration.yml:/config 
+      - /usr/share/homeassistant:/config 
       - /etc/localtime:/etc/localtime:ro 
   traefik:
-    image: traefik
-    command: --web --docker --docker.domain=docker.local --logLevel=INFO
+    image: hypriot/rpi-traefik
+    restart: always
     ports:
       - "80:80"
       - "443:443"
-      - "8080:8080"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - /dev/null:/traefik.toml
+      - /usr/share/traefik:/etc/traefik
+  log:
+    image: logentries/docker-logentries
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: [-t 82855f8b-5341-34d5-3e54-12b612c26efa -j -a host=pi]
+     

@@ -1,0 +1,25 @@
+defaultEntryPoints = ["http", "https"]
+
+[entryPoints]
+  [entryPoints.http]
+    address = ":80"
+      [entryPoints.http.redirect]
+      entryPoint = "https"
+  [entryPoints.https]
+  address = ":443"
+    [entryPoints.https.tls]
+
+[docker]
+endpoint = "unix:///var/run/docker.sock"
+domain = "erwinsteffens.nl"
+watch = true
+
+[acme]
+email = "erwinsteffens@gmail.nl"
+storageFile = "/etc/traefik/acme/acme.json"
+entryPoint = "https"
+onDemand = false
+
+[[acme.domains]]
+  main = "home.erwinsteffens.nl"
+  sans = ["home.erwinsteffens.nl"]

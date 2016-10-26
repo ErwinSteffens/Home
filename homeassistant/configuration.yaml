@@ -15,6 +15,7 @@ media_player:
 frontend:
 
 http:
+  api_password: !env_var HOMEASSISTANT_PASSWORD
 
 updater:
 
@@ -26,15 +27,31 @@ logbook:
 
 sun:
 
+rfxtrx:
+  device: /dev/serial/by-id/usb-RFXCOM_RFXtrx433
+  debug: true
+
 influxdb:
   host: influxdb
   database: home_assistant
   username: home_assistant
-  password: home_assistant
+  password: test
 
 sensor:
-  - platform: darksky
-    api_key: 9ae1cca45ff989e187edd82e2dd19e8d
+  - platform: yr
     monitored_conditions:
       - temperature
-      - wind_speed
+      - symbol
+      - windSpeed
+      - pressure
+      - windDirection
+  - platform: rfxtrx
+    automatic_add: True
+
+light:
+  - platform: rfxtrx
+    automatic_add: True
+
+switch:
+  - platform: rfxtrx
+    automatic_add: True
