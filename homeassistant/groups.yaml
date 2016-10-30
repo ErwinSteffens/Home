@@ -1,0 +1,5 @@
+outside:
+  - light.tuinhuis_afdak
+outside_all: 
+  - group.outside
+  - light.tuinhuis_binnen

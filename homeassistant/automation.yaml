@@ -1,0 +1,43 @@
+- alias: Turn on outside lights when sun sets
+  hide_entity: false
+  trigger:
+    platform: sun
+    event: sunset
+  condition:
+    condition: time
+    before: '23:59:59'
+  action:
+    service: light.turn_on
+    entity_id: group.outside
+    data:
+      brightness: 150
+- alias: Turn off outside lights when midnight
+  hide_entity: false
+  trigger:
+    platform: time
+    after: '00:00:00'
+  action:
+    service: light.turn_off
+    entity_id: group.outside_all    
+- alias: Turn on outside lights in morning
+  hide_entity: false
+  trigger:
+    platform: time
+    after: '00:06:00'
+  condition:
+    condition: state
+    entity_id: sun.sun
+    state: 'below_horizon'
+  action:
+    service: light.turn_on
+    entity_id: group.outside
+    data:
+      brightness: 150
+- alias: Turn off outside lights when sun rises
+  hide_entity: false
+  trigger:
+    platform: sun
+    event: sunrise
+  action:
+    service: light.turn_off
+    entity_id: group.outside

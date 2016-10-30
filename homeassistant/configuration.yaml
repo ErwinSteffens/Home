@@ -17,8 +17,6 @@ frontend:
 http:
   api_password: !env_var HOMEASSISTANT_PASSWORD
 
-updater:
-
 discovery:
 
 history:
@@ -27,31 +25,18 @@ logbook:
 
 sun:
 
+# influxdb:
+#   host: influxdb
+#   database: homeassistant
+#   username: homeassistant
+#   password: !env_var INFLUXDB_PASSWORD
+
 rfxtrx:
   device: /dev/serial/by-id/usb-RFXCOM_RFXtrx433
-  debug: true
+  debug: false
 
-influxdb:
-  host: influxdb
-  database: home_assistant
-  username: home_assistant
-  password: test
-
-sensor:
-  - platform: yr
-    monitored_conditions:
-      - temperature
-      - symbol
-      - windSpeed
-      - pressure
-      - windDirection
-  - platform: rfxtrx
-    automatic_add: True
-
-light:
-  - platform: rfxtrx
-    automatic_add: True
-
-switch:
-  - platform: rfxtrx
-    automatic_add: True
+sensor: !include sensors.yaml
+light: !include lights.yaml
+switch: !include switches.yaml
+automation: !include automation.yaml
+group: !include groups.yaml

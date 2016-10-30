@@ -13,6 +13,7 @@ defaultEntryPoints = ["http", "https"]
 endpoint = "unix:///var/run/docker.sock"
 domain = "erwinsteffens.nl"
 watch = true
+exposedbydefault = false
 
 [acme]
 email = "erwinsteffens@gmail.nl"
@@ -22,4 +23,5 @@ onDemand = false
 
 [[acme.domains]]
   main = "home.erwinsteffens.nl"
-  sans = ["home.erwinsteffens.nl"]
+[[acme.domains]]
+  main = "grafana.erwinsteffens.nl"  

@@ -1,0 +1,7 @@
+- platform: rfxtrx
+  automatic_add: false
+  devices:
+    0b1100010140c8560b010f70:
+      name: Tuinhuis afdak
+    0b1100000140c8560c010f70:
+      name: Tuinhuis binnen
