@@ -34,3 +34,5 @@ light: !include lights.yaml
 switch: !include switches.yaml
 automation: !include automation.yaml
 group: !include groups.yaml
+
+# testing git pull add-on
