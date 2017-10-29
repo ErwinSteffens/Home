@@ -15,7 +15,7 @@ media_player:
 frontend:
 
 http:
-  api_password: !env_var HOMEASSISTANT_PASSWORD
+  api_password: !secret http_password
 
 discovery:
 
